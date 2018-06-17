@@ -90,5 +90,44 @@ namespace FormBaseLib.Models {
             }
         }
 
+        #region Disposable Methods
+        // Methods needed for the IDisposable interface
+
+        /// <summary>
+        ///     Dispose of the current model. This is not virtual
+        /// </summary>
+        public void Dispose() {
+            Dispose(true);
+
+            // Object is cleaned up by the Dispoes method
+            // Take the object off of the finalization queue and prevent finalization code for the object from executing a second time
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        ///     Actual call to disposing the object. The boolean is
+        ///     an indiactor for if the code directly calls it (true)
+        ///     or it is implicitly called (false)
+        /// </summary>
+        /// <param name="disposing">
+        ///     Boolean indicating what is triggering the method
+        /// </param>
+        protected virtual void Dispose(bool disposing) {
+            if (!_disposed) {
+                // If the object is not already disposed
+                if (disposing) {
+                    // Dispose all managed and unmanaged resources
+                    // TODO
+                }
+
+                // Call other cleanup methods
+                
+                // Disposing is now done
+                _disposed = true;
+            }
+        }
+
+        #endregion
+
     }
 }
