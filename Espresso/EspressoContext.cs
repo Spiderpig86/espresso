@@ -11,5 +11,10 @@ namespace Espresso {
     /// </summary>
     public class EspressoContext : ApplicationContext {
 
+        private TrayView _trayView;
+
+        public EspressoContext() {
+            _trayView = new TrayView();
+        }
     }
 }
