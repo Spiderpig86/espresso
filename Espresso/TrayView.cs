@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Espresso {
@@ -13,7 +14,7 @@ namespace Espresso {
     public class TrayView {
 
         // Hidden window for running code on GUI thread
-        //private Window _hiddenWindow;
+        private System.Windows.Window _hiddenWindow;
 
         private NotifyIcon _notifyIcon; // The tray display
         private IContainer _components; // For grouping components
@@ -31,13 +32,26 @@ namespace Espresso {
             _components = new Container();
             _notifyIcon = new NotifyIcon(_components) {
                 ContextMenuStrip = new ContextMenuStrip(),
-                // Icon =
+                Icon = Espresso.Properties.Resources.NotReadyIcon,
                 Text = "Espresso (not running)",
                 Visible = true,
             };
 
             // Hook events
             _notifyIcon.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
+
+            _hiddenWindow = new System.Windows.Window();
+            _hiddenWindow.Hide();
+        }
+
+        System.Windows.Media.ImageSource AppIcon {
+            get {
+                System.Drawing.Icon icon = Properties.Resources.ReadyIcon;
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                    icon.Handle,
+                    System.Windows.Int32Rect.Empty,
+                    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            }
         }
 
         /// <summary>
@@ -83,5 +97,14 @@ namespace Espresso {
         private void exitItem_Click(object sender, EventArgs e) {
             Application.Exit();
         }
+
+        private void displayStatusMessage(String text) {
+            _hiddenWindow.Dispatcher.Invoke(delegate {
+                _notifyIcon.BalloonTipText = "Test";
+                // The timeout is ignored on recent Windows
+                _notifyIcon.ShowBalloonTip(3000);
+            });
+        }
     }
+
 }

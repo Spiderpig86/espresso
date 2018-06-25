@@ -21,7 +21,7 @@ namespace Espresso {
                 // hasBeenCreated will be assigned true after lock is created
                 if (!hasBeenCreated) {
                     // Only allow one instance
-                    return;
+                    //return;
                 }
 
                 Application.EnableVisualStyles();
