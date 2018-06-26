@@ -22,9 +22,9 @@ namespace Espresso {
         // FORMS
 
         // TOOLSTRIP MENU ITEMS
-        private ToolStripMenuItem _testItem;
         private ToolStripMenuItem _preventSleepItem;
         private ToolStripMenuItem _allowSleepItem;
+        private ToolStripMenuItem _aboutItem;
         private ToolStripMenuItem _exitItem;
 
         public TrayView() {
@@ -89,13 +89,10 @@ namespace Espresso {
 
             // Populate list if empty
             if (_notifyIcon.ContextMenuStrip.Items.Count == 0) {
+                _aboutItem = buildMenuItem("&About", "About", aboutItem_Click);
                 _exitItem = buildMenuItem("&Exit", "Exits System Tray App", exitItem_Click);
                 _notifyIcon.ContextMenuStrip.Items.Add(_exitItem);
             }
-        }
-
-        private void exitItem_Click(object sender, EventArgs e) {
-            Application.Exit();
         }
 
         private void displayStatusMessage(String text) {
@@ -104,6 +101,18 @@ namespace Espresso {
                 // The timeout is ignored on recent Windows
                 _notifyIcon.ShowBalloonTip(3000);
             });
+        }
+
+        /**
+         * EVENT HANDLERS
+         */
+
+        private void aboutItem_Click(object sender, EventArgs e) {
+
+        }
+
+        private void exitItem_Click(object sender, EventArgs e) {
+            Application.Exit();
         }
     }
 
