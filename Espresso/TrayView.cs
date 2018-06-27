@@ -53,7 +53,7 @@ namespace Espresso {
 
         System.Windows.Media.ImageSource AppIcon {
             get {
-                System.Drawing.Icon icon = Properties.Resources.ReadyIcon;
+                System.Drawing.Icon icon = Properties.Resources.espresso_100_ico;
                 return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
                     icon.Handle,
                     System.Windows.Int32Rect.Empty,
@@ -126,7 +126,7 @@ namespace Espresso {
                 _aboutViewModel.AddAppInfo("name", Assembly.GetExecutingAssembly().GetName().Name);
                 _aboutViewModel.AddAppInfo("version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
-                
+                _aboutView.Icon = AppIcon;
 
                 _aboutView.Show();
             } else

@@ -96,7 +96,9 @@
     <None Include="Resources\ReadyIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\espresso-100.png" />
+    <Resource Include="Resources\espresso-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\espresso_100.ico" />

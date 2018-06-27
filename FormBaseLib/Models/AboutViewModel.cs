@@ -60,13 +60,13 @@ namespace FormBaseLib.Models {
 
         public String AppVersion {
             get {
-                return Array.Find(VersionInfo.ToArray(), entry => entry.Name == "version").Value;
+                return "version " + Array.Find(VersionInfo.ToArray(), entry => entry.Name == "version").Value;
             }
         }
 
         public String Copyright {
             get {
-                return "Copyright  " + new DateTime().Year + " Stanley Lim";
+                return "Copyright " + DateTime.Now.Year + " Stanley Lim";
             }
         }
 
