@@ -29,7 +29,10 @@ namespace Espresso {
         private ToolStripMenuItem _preventSleepItem;
         private ToolStripMenuItem _allowSleepItem;
         private ToolStripMenuItem _aboutItem;
+        private ToolStripMenuItem _toggleItem;
         private ToolStripMenuItem _exitItem;
+
+        private bool isTimeoutDisabled = false; // Flag to indicate if the user has toggled timeouts. If true, screen will not sleep
 
         public TrayView() {
 
@@ -97,16 +100,20 @@ namespace Espresso {
             // Populate list if empty
             if (_notifyIcon.ContextMenuStrip.Items.Count == 0) {
                 _aboutItem = buildMenuItem("&About", "About the app", aboutItem_Click);
+                _toggleItem = buildMenuItem(isTimeoutDisabled ? "Disable Sleep" : "Enable Sleep", "Toggle Screen Sleep", toggleItem_Click);
                 _exitItem = buildMenuItem("&Exit", "Exits System Tray App", exitItem_Click);
 
-                _notifyIcon.ContextMenuStrip.Items.Add(_aboutItem);
-                _notifyIcon.ContextMenuStrip.Items.Add(_exitItem);
+                _notifyIcon.ContextMenuStrip.Items.AddRange(new ToolStripMenuItem[]{
+                    _aboutItem,
+                    _toggleItem,
+                    _exitItem
+                });
             }
         }
 
         private void displayStatusMessage(String text) {
             _hiddenWindow.Dispatcher.Invoke(delegate {
-                _notifyIcon.BalloonTipText = "Test";
+                _notifyIcon.BalloonTipText = isTimeoutDisabled ? "Screen Timeout Disabled" : "Screen Timeout Enabled";
                 // The timeout is ignored on recent Windows
                 _notifyIcon.ShowBalloonTip(3000);
             });
@@ -133,6 +140,16 @@ namespace Espresso {
                 _aboutView.Activate();
 
             _aboutView.Icon = AppIcon;
+        }
+
+        private void toggleItem_Click(object sender, EventArgs e) {
+            if (isTimeoutDisabled) {
+                this.isTimeoutDisabled = false; // Enable timeout again
+                NativeWrapper.AllowSleep();
+            } else {
+                this.isTimeoutDisabled = true;
+                NativeWrapper.PreventSleep();
+            }
         }
 
         private void exitItem_Click(object sender, EventArgs e) {

@@ -9,7 +9,7 @@ namespace Espresso {
     /**
      * Interface for system calls for screen timeout
      */
-    internal static class NativeWrapper {
+    public static class NativeWrapper {
 
         [FlagsAttribute]
         private enum ExecutionState : uint {
