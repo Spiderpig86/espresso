@@ -26,11 +26,11 @@ namespace Espresso {
         private FormBaseLib.Models.AboutViewModel _aboutViewModel;
 
         // TOOLSTRIP MENU ITEMS
-        private ToolStripMenuItem _preventSleepItem;
-        private ToolStripMenuItem _allowSleepItem;
-        private ToolStripMenuItem _aboutItem;
-        private ToolStripMenuItem _toggleItem;
-        private ToolStripMenuItem _exitItem;
+        private MenuItem _preventSleepItem;
+        private MenuItem _allowSleepItem;
+        private MenuItem _aboutItem;
+        private MenuItem _toggleItem;
+        private MenuItem _exitItem;
 
         private bool isTimeoutDisabled = false; // Flag to indicate if the user has toggled timeouts. If true, screen will not sleep
 
@@ -38,14 +38,14 @@ namespace Espresso {
 
             _components = new Container();
             _notifyIcon = new NotifyIcon(_components) {
-                ContextMenuStrip = new ContextMenuStrip(),
+                ContextMenu = new ContextMenu(),
                 Icon = Espresso.Properties.Resources.NotReadyIcon,
                 Text = "Espresso (not running)",
                 Visible = true,
             };
 
             // Hook events
-            _notifyIcon.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
+            _notifyIcon.ContextMenu.Popup += ContextMenu_Opening;
 
             // Init models
             _aboutViewModel = new FormBaseLib.Models.AboutViewModel();
@@ -79,13 +79,13 @@ namespace Espresso {
         /// <returns>
         ///     Constructed toolstrip menu item
         /// </returns>
-        private ToolStripMenuItem buildMenuItem(String displayText, String tooltipText, EventHandler eventHandler) {
-            ToolStripMenuItem item = new ToolStripMenuItem(displayText);
+        private MenuItem buildMenuItem(String displayText, String tooltipText, EventHandler eventHandler) {
+            MenuItem item = new MenuItem(displayText);
             if (eventHandler != null) {
                 item.Click += eventHandler;
             }
 
-            item.ToolTipText = tooltipText;
+            //item.Text = tooltipText;
             return item;
         }
 
@@ -94,16 +94,15 @@ namespace Espresso {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ContextMenuStrip_Opening(Object sender, CancelEventArgs e) {
-            e.Cancel = false;
+        private void ContextMenu_Opening(Object sender, EventArgs e) {
 
             // Populate list if empty
-            if (_notifyIcon.ContextMenuStrip.Items.Count == 0) {
+            if (_notifyIcon.ContextMenu.MenuItems.Count == 0) {
                 _aboutItem = buildMenuItem("&About", "About the app", aboutItem_Click);
-                _toggleItem = buildMenuItem(isTimeoutDisabled ? "Disable Sleep" : "Enable Sleep", "Toggle Screen Sleep", toggleItem_Click);
-                _exitItem = buildMenuItem("&Exit", "Exits System Tray App", exitItem_Click);
+                _toggleItem = buildMenuItem(isTimeoutDisabled ? "Disable &Sleep" : "Enable &Sleep", "Toggle Screen Sleep", toggleItem_Click);
+                _exitItem = buildMenuItem("E&xit", "Exits System Tray App", exitItem_Click);
 
-                _notifyIcon.ContextMenuStrip.Items.AddRange(new ToolStripMenuItem[]{
+                _notifyIcon.ContextMenu.MenuItems.AddRange(new MenuItem[]{
                     _aboutItem,
                     _toggleItem,
                     _exitItem

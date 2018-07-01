@@ -6,6 +6,21 @@ using System.Windows.Forms;
 
 namespace Espresso {
     static class Program {
+
+        /// <summary>
+        ///     For displaying accelerator keys constantly
+        /// </summary>
+        /// <param name="uAction"></param>
+        /// <param name="uParam"></param>
+        /// <param name="lpvParam"></param>
+        /// <param name="fuWinIni"></param>
+        /// <returns></returns>
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern int SystemParametersInfo(int uAction, int uParam, int lpvParam, int fuWinIni);
+
+        private const int SPI_SETKEYBOARDCUES = 4107; // 100B
+        private const int SPIF_SENDWININICHANGE = 2;
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
@@ -26,6 +41,8 @@ namespace Espresso {
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+
+                SystemParametersInfo(SPI_SETKEYBOARDCUES, 0, 1, 0);
 
                 try {
                     EspressoContext context = new EspressoContext();
