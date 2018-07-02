@@ -26,11 +26,11 @@ namespace Espresso {
         private FormBaseLib.Models.AboutViewModel _aboutViewModel;
 
         // TOOLSTRIP MENU ITEMS
-        private MenuItem _preventSleepItem;
-        private MenuItem _allowSleepItem;
         private MenuItem _aboutItem;
-        private MenuItem _toggleItem;
+        private MenuItem _durationItem;
         private MenuItem _exitItem;
+        private MenuItem _settingsItem;
+        private MenuItem _toggleItem;
 
         private bool isTimeoutDisabled = false; // Flag to indicate if the user has toggled timeouts. If true, screen will not sleep
 
@@ -89,25 +89,11 @@ namespace Espresso {
             return item;
         }
 
-        /// <summary>
-        ///     Populate context menu on each open
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ContextMenu_Opening(Object sender, EventArgs e) {
+        private MenuItem buildMenuItemFromCollection<T>(String displayText, EventHandler eventHandler, IList<T> collection) {
+            MenuItem item = buildMenuItem(displayText, "", null);
+            item.MenuItems.AddRange(collection.Select(ele => buildMenuItem(ele.ToString(), "", eventHandler)).ToArray());
 
-            // Populate list if empty
-            if (_notifyIcon.ContextMenu.MenuItems.Count == 0) {
-                _aboutItem = buildMenuItem("&About", "About the app", aboutItem_Click);
-                _toggleItem = buildMenuItem(isTimeoutDisabled ? "Disable &Sleep" : "Enable &Sleep", "Toggle Screen Sleep", toggleItem_Click);
-                _exitItem = buildMenuItem("E&xit", "Exits System Tray App", exitItem_Click);
-
-                _notifyIcon.ContextMenu.MenuItems.AddRange(new MenuItem[]{
-                    _aboutItem,
-                    _toggleItem,
-                    _exitItem
-                });
-            }
+            return item;
         }
 
         private void displayStatusMessage(String text) {
@@ -121,6 +107,28 @@ namespace Espresso {
         /**
          * EVENT HANDLERS
          */
+        /// <summary>
+        ///     Populate context menu on each open
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ContextMenu_Opening(Object sender, EventArgs e) {
+
+            // Populate list if empty
+            if (_notifyIcon.ContextMenu.MenuItems.Count == 0) {
+                _aboutItem = buildMenuItem("&About...", "About the app", aboutItem_Click);
+                _durationItem = buildMenuItemFromCollection("Select Duration...", null, Constants.DurationMins);
+                _exitItem = buildMenuItem("E&xit", "Exits System Tray App", exitItem_Click);
+                _settingsItem = buildMenuItem("Se&ttings...", "Open app settings", settingsItem_Click);
+                _toggleItem = buildMenuItem(isTimeoutDisabled ? "Disable &Sleep" : "Enable &Sleep", "Toggle Screen Sleep", toggleItem_Click);
+
+                _notifyIcon.ContextMenu.MenuItems.AddRange(new MenuItem[]{
+                    _aboutItem,
+                    _toggleItem,
+                    _exitItem
+                });
+            }
+        }
 
         private void aboutItem_Click(object sender, EventArgs e) {
             if (_aboutView == null) {
@@ -141,6 +149,14 @@ namespace Espresso {
             _aboutView.Icon = AppIcon;
         }
 
+        private void exitItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void settingsItem_Click(object sender, EventArgs e) {
+
+        }
+
         private void toggleItem_Click(object sender, EventArgs e) {
             if (isTimeoutDisabled) {
                 this.isTimeoutDisabled = false; // Enable timeout again
@@ -151,9 +167,6 @@ namespace Espresso {
             }
         }
 
-        private void exitItem_Click(object sender, EventArgs e) {
-            Application.Exit();
-        }
     }
 
 }
