@@ -123,8 +123,11 @@ namespace Espresso {
                 _toggleItem = buildMenuItem(isTimeoutDisabled ? "Disable &Sleep" : "Enable &Sleep", "Toggle Screen Sleep", toggleItem_Click);
 
                 _notifyIcon.ContextMenu.MenuItems.AddRange(new MenuItem[]{
+                    _durationItem,
+                    new MenuItem("-"),
                     _aboutItem,
                     _toggleItem,
+                    _settingsItem,
                     _exitItem
                 });
             }
