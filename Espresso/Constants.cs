@@ -45,7 +45,20 @@ namespace Espresso {
                 return _durationMins;
             }
 
-            // TODO: Set
+            set {
+                _durationMins = value;
+            }
+        }
+
+        /**
+         * Collection methods
+         */
+        public static bool AddDuration(Duration dur) {
+            if (_durationMins.Contains(dur))
+                return false;
+
+            _durationMins.Add(dur);
+            return true;
         }
     }
 }

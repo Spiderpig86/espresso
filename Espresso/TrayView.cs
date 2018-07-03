@@ -20,6 +20,8 @@ namespace Espresso {
 
         private NotifyIcon _notifyIcon; // The tray display
         private IContainer _components; // For grouping components
+        private Timer _sleepTimer; // Keep track of duration of no sleep
+        private Constants.Duration _selectedDuration; // Current selected duration
 
         // FORMS
         private FormBaseLib.Views.AboutView _aboutView;
@@ -32,7 +34,28 @@ namespace Espresso {
         private MenuItem _settingsItem;
         private MenuItem _toggleItem;
 
-        private bool isTimeoutDisabled = false; // Flag to indicate if the user has toggled timeouts. If true, screen will not sleep
+        private bool _isTimeoutDisabled = false; // Flag to indicate if the user has toggled timeouts. If true, screen will not sleep
+
+        public bool IsTimeoutDisabled {
+            get {
+                return _isTimeoutDisabled;
+            }
+            set {
+                _isTimeoutDisabled = value;
+                _toggleItem.Checked = value;
+                if (_isTimeoutDisabled) {
+                    this._sleepTimer.Enabled = true;
+                    this._sleepTimer.Interval = this._selectedDuration.Time * 60 * 1000;
+                    this._sleepTimer.Start();
+                    NativeWrapper.PreventSleep();
+                } else {
+                    this._sleepTimer.Enabled = false;
+                    this._sleepTimer.Stop();
+                    NativeWrapper.AllowSleep();
+                }
+
+            }
+        }
 
         public TrayView() {
 
@@ -43,6 +66,7 @@ namespace Espresso {
                 Text = "Espresso (not running)",
                 Visible = true,
             };
+            _sleepTimer = new Timer(_components);
 
             // Hook events
             _notifyIcon.ContextMenu.Popup += ContextMenu_Opening;
@@ -98,7 +122,7 @@ namespace Espresso {
 
         private void displayStatusMessage(String text) {
             _hiddenWindow.Dispatcher.Invoke(delegate {
-                _notifyIcon.BalloonTipText = isTimeoutDisabled ? "Screen Timeout Disabled" : "Screen Timeout Enabled";
+                _notifyIcon.BalloonTipText = IsTimeoutDisabled ? "Screen Timeout Disabled" : "Screen Timeout Enabled";
                 // The timeout is ignored on recent Windows
                 _notifyIcon.ShowBalloonTip(3000);
             });
@@ -120,7 +144,7 @@ namespace Espresso {
                 _durationItem = buildMenuItemFromCollection("Select Duration...", null, Constants.DurationMins);
                 _exitItem = buildMenuItem("E&xit", "Exits System Tray App", exitItem_Click);
                 _settingsItem = buildMenuItem("Se&ttings...", "Open app settings", settingsItem_Click);
-                _toggleItem = buildMenuItem(isTimeoutDisabled ? "Disable &Sleep" : "Enable &Sleep", "Toggle Screen Sleep", toggleItem_Click);
+                _toggleItem = buildMenuItem(IsTimeoutDisabled ? "Disable &Sleep" : "Enable &Sleep", "Toggle Screen Sleep", toggleItem_Click);
 
                 _notifyIcon.ContextMenu.MenuItems.AddRange(new MenuItem[]{
                     _durationItem,
@@ -161,13 +185,7 @@ namespace Espresso {
         }
 
         private void toggleItem_Click(object sender, EventArgs e) {
-            if (isTimeoutDisabled) {
-                this.isTimeoutDisabled = false; // Enable timeout again
-                NativeWrapper.AllowSleep();
-            } else {
-                this.isTimeoutDisabled = true;
-                NativeWrapper.PreventSleep();
-            }
+            IsTimeoutDisabled = !IsTimeoutDisabled; // Update properties
         }
 
     }
