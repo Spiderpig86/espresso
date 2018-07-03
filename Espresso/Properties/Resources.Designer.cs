@@ -93,9 +93,9 @@ namespace Espresso.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon NotReadyIcon {
+        internal static System.Drawing.Icon espresso_off {
             get {
-                object obj = ResourceManager.GetObject("NotReadyIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("espresso_off", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace Espresso.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon ReadyIcon {
+        internal static System.Drawing.Icon espresso_on {
             get {
-                object obj = ResourceManager.GetObject("ReadyIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("espresso_on", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

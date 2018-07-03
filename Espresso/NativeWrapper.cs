@@ -21,14 +21,14 @@ namespace Espresso {
 
         /* Kernel function for setting execution state of sleep thread */
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
+        private static extern uint SetThreadExecutionState(ExecutionState esFlags);
 
-        public static void PreventSleep() {
-            SetThreadExecutionState(ExecutionState.EsContinuous | ExecutionState.EsSystemRequired);
+        public static uint PreventSleep() {
+            return SetThreadExecutionState(ExecutionState.EsContinuous | ExecutionState.EsSystemRequired);
         }
 
-        public static void AllowSleep() {
-            SetThreadExecutionState(ExecutionState.EsContinuous);
+        public static uint AllowSleep() {
+            return SetThreadExecutionState(ExecutionState.EsContinuous);
         }
     }
 }

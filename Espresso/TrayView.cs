@@ -22,6 +22,7 @@ namespace Espresso {
         private IContainer _components; // For grouping components
         private Timer _sleepTimer; // Keep track of duration of no sleep
         private Constants.Duration _selectedDuration; // Current selected duration
+        private uint? oldState = null;
 
         // FORMS
         private FormBaseLib.Views.AboutView _aboutView;
@@ -44,14 +45,9 @@ namespace Espresso {
                 _isTimeoutDisabled = value;
                 _toggleItem.Checked = value;
                 if (_isTimeoutDisabled) {
-                    this._sleepTimer.Enabled = true;
-                    this._sleepTimer.Interval = this._selectedDuration.Time * 60 * 1000;
-                    this._sleepTimer.Start();
-                    NativeWrapper.PreventSleep();
+                    activate(this._selectedDuration);
                 } else {
-                    this._sleepTimer.Enabled = false;
-                    this._sleepTimer.Stop();
-                    NativeWrapper.AllowSleep();
+                    deactivate();
                 }
 
             }
@@ -62,11 +58,12 @@ namespace Espresso {
             _components = new Container();
             _notifyIcon = new NotifyIcon(_components) {
                 ContextMenu = new ContextMenu(),
-                Icon = Espresso.Properties.Resources.NotReadyIcon,
+                Icon = Espresso.Properties.Resources.espresso_off,
                 Text = "Espresso (not running)",
                 Visible = true,
             };
             _sleepTimer = new Timer(_components);
+            _selectedDuration = Constants.DurationMins.ElementAt(0); // Set to indefinite by default
 
             // Hook events
             _notifyIcon.ContextMenu.Popup += ContextMenu_Opening;
@@ -103,19 +100,20 @@ namespace Espresso {
         /// <returns>
         ///     Constructed toolstrip menu item
         /// </returns>
-        private MenuItem buildMenuItem(String displayText, String tooltipText, EventHandler eventHandler) {
+        private MenuItem buildMenuItem(String displayText, String tooltipText, EventHandler eventHandler, Object tag = null) {
             MenuItem item = new MenuItem(displayText);
             if (eventHandler != null) {
                 item.Click += eventHandler;
             }
 
             //item.Text = tooltipText;
+            item.Tag = tag;
             return item;
         }
 
         private MenuItem buildMenuItemFromCollection<T>(String displayText, EventHandler eventHandler, IList<T> collection) {
             MenuItem item = buildMenuItem(displayText, "", null);
-            item.MenuItems.AddRange(collection.Select(ele => buildMenuItem(ele.ToString(), "", eventHandler)).ToArray());
+            item.MenuItems.AddRange(collection.Select(ele => buildMenuItem(ele.ToString(), "", eventHandler, ele)).ToArray());
 
             return item;
         }
@@ -126,6 +124,38 @@ namespace Espresso {
                 // The timeout is ignored on recent Windows
                 _notifyIcon.ShowBalloonTip(3000);
             });
+        }
+
+        private void activate(Constants.Duration duration) {
+            if (duration.Time <= 0) return;
+
+            this._sleepTimer.Enabled = true;
+            this._sleepTimer.Interval = duration.Time * 60 * 1000;
+            this._sleepTimer.Start();
+            this.oldState = NativeWrapper.PreventSleep();
+
+            if (this.oldState == 0) {
+                MessageBox.Show("Error");
+                Application.Exit();
+            }
+
+            // Update icon and text
+            this._notifyIcon.Icon = Properties.Resources.espresso_on;
+            this._notifyIcon.Text = "Sleep Disabled until: ";
+        }
+
+        private void deactivate() {
+            this._sleepTimer.Enabled = false;
+            this._sleepTimer.Stop();
+
+            // Make sure that the thread was activated before
+            if (oldState.HasValue) {
+                NativeWrapper.AllowSleep();
+            }
+
+            // Update icon and text
+            this._notifyIcon.Icon = Properties.Resources.espresso_off;
+            this._notifyIcon.Text = "Espresso (off)";
         }
 
         /**
@@ -154,6 +184,14 @@ namespace Espresso {
                     _settingsItem,
                     _exitItem
                 });
+
+                // Select current duration
+                foreach (MenuItem item in _durationItem.MenuItems)
+                    if (((Constants.Duration) item.Tag).Time == _selectedDuration.Time) {
+                        item.Checked = true;
+                    } else {
+                        item.Checked = false;
+                    }
             }
         }
 
@@ -188,6 +226,14 @@ namespace Espresso {
             IsTimeoutDisabled = !IsTimeoutDisabled; // Update properties
         }
 
+        /// <summary>
+        ///     Run once after timer reaches specified duration
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timer_Tick(object sender, EventArgs e) {
+            deactivate();
+        }
     }
 
 }
