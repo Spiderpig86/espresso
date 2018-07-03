@@ -23,5 +23,9 @@ namespace Espresso {
                 return String.Format("{0} " + ((hours > 1) ? "hours" : "hour"), hours);
             }
         }
+
+        public static int ToMinutes(int minutes) {
+            return minutes * 60 * 1000;
+        }
     }
 }

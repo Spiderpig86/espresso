@@ -130,7 +130,7 @@ namespace Espresso {
             if (duration.Time <= 0) return;
 
             this._sleepTimer.Enabled = true;
-            this._sleepTimer.Interval = duration.Time * 60 * 1000;
+            this._sleepTimer.Interval = Functions.ToMinutes(duration.Time);
             this._sleepTimer.Start();
             this.oldState = NativeWrapper.PreventSleep();
 
@@ -171,7 +171,7 @@ namespace Espresso {
             // Populate list if empty
             if (_notifyIcon.ContextMenu.MenuItems.Count == 0) {
                 _aboutItem = buildMenuItem("&About...", "About the app", aboutItem_Click);
-                _durationItem = buildMenuItemFromCollection("Select Duration...", null, Constants.DurationMins);
+                _durationItem = buildMenuItemFromCollection("Select Duration...", durationItem_Click, Constants.DurationMins);
                 _exitItem = buildMenuItem("E&xit", "Exits System Tray App", exitItem_Click);
                 _settingsItem = buildMenuItem("Se&ttings...", "Open app settings", settingsItem_Click);
                 _toggleItem = buildMenuItem(IsTimeoutDisabled ? "Disable &Sleep" : "Enable &Sleep", "Toggle Screen Sleep", toggleItem_Click);
@@ -224,6 +224,14 @@ namespace Espresso {
 
         private void toggleItem_Click(object sender, EventArgs e) {
             IsTimeoutDisabled = !IsTimeoutDisabled; // Update properties
+        }
+
+        private void durationItem_Click(object sender, EventArgs e) {
+            Constants.Duration duration = (Constants.Duration) ((MenuItem) sender).Tag;
+            this._sleepTimer.Stop();
+            this._sleepTimer.Interval = Functions.ToMinutes(duration.Time);
+            this._sleepTimer.Start();
+
         }
 
         /// <summary>
