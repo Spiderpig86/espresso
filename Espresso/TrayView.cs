@@ -132,6 +132,7 @@ namespace Espresso {
             if (duration.Time <= 0 && duration.Time != -1) return;
 
             this._toggleItem.Checked = true;
+            toggleDurationItems(true);
 
             // Only activate timer if not set to constant
             if (duration.Time > 0) {
@@ -159,6 +160,7 @@ namespace Espresso {
 
         private void deactivate() {
             this._toggleItem.Checked = false;
+            toggleDurationItems(false);
             this._sleepTimer.Enabled = false;
             this._sleepTimer.Stop();
 
@@ -170,6 +172,12 @@ namespace Espresso {
             // Update icon and text
             this._notifyIcon.Icon = Properties.Resources.espresso_off;
             this._notifyIcon.Text = "Espresso (off)";
+        }
+
+        private void toggleDurationItems(bool enable) {
+            this._durationItem.Enabled = enable;
+            foreach (MenuItem item in _durationItem.MenuItems)
+                item.Enabled = enable;
         }
 
         /**
