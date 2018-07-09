@@ -31,13 +31,20 @@ namespace Espresso {
 
         private static IList<Duration> _durationMins = new List<Duration>() {
             new Duration(-1),
+
+            // Minutes Menu Items
             new Duration(5),
             new Duration(10),
             new Duration(15),
             new Duration(30),
+            new Duration(45),
+
+            // Hours Menu Items
             new Duration(60),
+            new Duration(120),
             new Duration(180),
-            new Duration(360)
+            new Duration(480),
+            new Duration(720)
         };
 
         public static IList<Duration> DurationMins {
