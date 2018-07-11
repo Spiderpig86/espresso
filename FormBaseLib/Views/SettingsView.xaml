@@ -1,27 +1,43 @@
 ﻿<Window x:Class="FormBaseLib.Models.Settings"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Settings" Height="360.729" Width="836.842">
-    <Grid Background="#FFFFF6D6" Margin="0,0,2,-2">
+        Title="Settings" Height="474.899" Width="836.842">
+    <Grid Background="White" Margin="0,0,2,-2">
         <Grid.RowDefinitions>
-            <RowDefinition Height="24*"/>
-            <RowDefinition Height="59*"/>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="177*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="13*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="750*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Settings" HorizontalAlignment="Left" Margin="53,23,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Semilight" Height="42" Width="92"/>
-        <Label Content="Customize Espresso to fit your schedule." Grid.Column="1" HorizontalAlignment="Left" Margin="22,32,0,0" VerticalAlignment="Top" FontSize="16" Grid.ColumnSpan="2" Width="591"/>
-        <TabControl Grid.Column="2" HorizontalAlignment="Left" Height="236" Grid.Row="1" VerticalAlignment="Top" Width="635">
-            <TabItem Header="General" FontSize="16">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Advanced" FontSize="16">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
+        <Label Content="Settings" HorizontalAlignment="Left" Margin="24,17,0,0" VerticalAlignment="Top" FontSize="32" FontFamily="Segoe UI Semilight" Height="53" Width="121" Grid.Column="1"/>
+        <Canvas Grid.Column="1" HorizontalAlignment="Left" Height="3" Margin="29,68,0,0" VerticalAlignment="Top" Width="30" Background="#FF0085E3" RenderTransformOrigin="0.5,0.5">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
+        <Canvas HorizontalAlignment="Left" Width="77" Grid.RowSpan="2" Background="#FF0085E3" Height="446" VerticalAlignment="Bottom" />
+
+        <Canvas Grid.Column="1" Grid.Row="1">
+            <Label Content="App Duration" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="20" Canvas.Left="26" Canvas.Top="28"/>
+            <Label Content="Activate sleep blocking automatically." Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC" Canvas.Left="26" Canvas.Top="57"/>
+            <ComboBox Canvas.Left="463" Canvas.Top="225" Width="244" FontSize="18"/>
+            <Canvas Height="354" Width="750"/>
+        </Canvas>
+
+        <Canvas Grid.Column="1" Background="White" Grid.Row="1" HorizontalAlignment="Left" Width="750">
+            <Label Content="Start the program Windows startup" Grid.Column="1" HorizontalAlignment="Left" Margin="24,35,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+            <Label Content="Starts the program (but does not activate the program)." Grid.Column="1" HorizontalAlignment="Left" Margin="24,64,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC"/>
+            <Label Content="Activate upon launch" Grid.Column="1" HorizontalAlignment="Left" Margin="24,121,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+            <Label Content="Activate sleep blocking automatically." Grid.Column="1" HorizontalAlignment="Left" Margin="24,150,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC"/>
+        </Canvas>
+
 
     </Grid>
 </Window>
