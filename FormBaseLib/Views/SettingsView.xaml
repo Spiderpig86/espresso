@@ -22,21 +22,11 @@
                 </TransformGroup>
             </Canvas.RenderTransform>
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Width="77" Grid.RowSpan="2" Background="#FF0085E3" Height="446" VerticalAlignment="Bottom" />
-
-        <Canvas Grid.Column="1" Grid.Row="1">
-            <Label Content="App Duration" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="20" Canvas.Left="26" Canvas.Top="28"/>
-            <Label Content="Activate sleep blocking automatically." Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC" Canvas.Left="26" Canvas.Top="57"/>
-            <ComboBox Canvas.Left="463" Canvas.Top="225" Width="244" FontSize="18"/>
-            <Canvas Height="354" Width="750"/>
-        </Canvas>
-
-        <Canvas Grid.Column="1" Background="White" Grid.Row="1" HorizontalAlignment="Left" Width="750">
-            <Label Content="Start the program Windows startup" Grid.Column="1" HorizontalAlignment="Left" Margin="24,35,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
-            <Label Content="Starts the program (but does not activate the program)." Grid.Column="1" HorizontalAlignment="Left" Margin="24,64,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC"/>
-            <Label Content="Activate upon launch" Grid.Column="1" HorizontalAlignment="Left" Margin="24,121,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
-            <Label Content="Activate sleep blocking automatically." Grid.Column="1" HorizontalAlignment="Left" Margin="24,150,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC"/>
-        </Canvas>
+        <Frame Content="Frame" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <StackPanel HorizontalAlignment="Right" Width="81" Grid.RowSpan="2" Background="#FF0085E3" Margin="-4,0,0,0">
+            <Button Content="Basic" MinHeight="81" Background="#FF0085E3" Foreground="White" FontSize="18" BorderThickness="0"/>
+            <Button Content="Advanced" MinHeight="81" Background="#FF0085E3" Foreground="White" FontSize="18" BorderThickness="0"/>
+        </StackPanel>
 
 
     </Grid>
