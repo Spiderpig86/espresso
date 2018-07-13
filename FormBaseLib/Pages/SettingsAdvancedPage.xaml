@@ -7,6 +7,14 @@
       d:DesignHeight="330" d:DesignWidth="715"
 	Title="SettingsAdvancedPage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StylesResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid Background="White">
         <Label Content="Start the program Windows startup" HorizontalAlignment="Left" Margin="24,35,-45,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Starts the program (but does not activate the program)." HorizontalAlignment="Left" Margin="24,64,-126,0" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC"/>
@@ -17,11 +25,4 @@
 
     </Grid>
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./StylesResourceDictionary.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
 </Page>

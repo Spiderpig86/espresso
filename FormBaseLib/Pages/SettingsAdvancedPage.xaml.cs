@@ -17,9 +17,13 @@ namespace FormBaseLib.Pages {
     /// <summary>
     /// Interaction logic for SettingsAdvancedPage.xaml
     /// </summary>
-    public partial class SettingsAdvancedPage : Page {
+    public partial class SettingsAdvancedPage : Page, FormBaseLib.Models.IExtendedPage {
         public SettingsAdvancedPage() {
             InitializeComponent();
+        }
+
+        public void updatePageContents() {
+
         }
     }
 }

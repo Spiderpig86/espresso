@@ -12,17 +12,48 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FormBaseLib.Models {
+namespace FormBaseLib.Views {
     /// <summary>
     ///     Interaction logic for Settings.xaml
     /// </summary>
-    public partial class Settings : Window {
-        public Settings() {
+    public partial class SettingsView : Window {
+
+        // Store settings page instances
+        private FormBaseLib.Models.IExtendedPage basicSettingsPage;
+        private FormBaseLib.Models.IExtendedPage advancedSettingsPage;
+
+        public SettingsView() {
             InitializeComponent();
+
+            // Init pages once
+            this.basicSettingsPage = new FormBaseLib.Pages.SettingsBasicPage();
+            this.advancedSettingsPage = new FormBaseLib.Pages.SettingsAdvancedPage();
+
+            // Show the initial page
+            Frame.Content = this.basicSettingsPage;
         }
 
-        private void updateSettings(Page page) {
-
+        /// <summary>
+        ///     Trigger update for page contents of application settings
+        /// </summary>
+        /// <param name="page">
+        ///     The page that we want to update
+        /// </param>
+        private void updateSettings(FormBaseLib.Models.IExtendedPage page) {
+            page.updatePageContents();
         }
+
+
+        #region "Event Handlers"
+
+        private void BasicSettingsButton_Click(object sender, RoutedEventArgs e) {
+            Frame.Content = this.basicSettingsPage;
+        }
+
+        private void AdvancedSettingsButton_Click(object sender, RoutedEventArgs e) {
+            Frame.Content = this.advancedSettingsPage;
+        }
+
+        #endregion
     }
 }

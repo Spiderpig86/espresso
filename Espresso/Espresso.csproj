@@ -42,7 +42,8 @@
     <ApplicationIcon>Resources\espresso_100.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FormBaseLib">
+    <Reference Include="FormBaseLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FormBaseLib\bin\Debug\FormBaseLib.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />

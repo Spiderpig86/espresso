@@ -1,4 +1,4 @@
-﻿using FormBaseLib.Models;
+﻿using FormBaseLib.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -241,7 +241,8 @@ namespace Espresso {
         }
 
         private void settingsItem_Click(object sender, EventArgs e) {
-
+            FormBaseLib.Views.SettingsView _settingsView = new SettingsView();
+            _settingsView.Show();
         }
 
         private void toggleItem_Click(object sender, EventArgs e) {

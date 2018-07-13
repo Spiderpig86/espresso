@@ -13,13 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FormBaseLib {
+namespace FormBaseLib.Pages {
     /// <summary>
     /// Interaction logic for SettingsBasicPage.xaml
     /// </summary>
-    public partial class SettingsBasicPage : Page {
+    public partial class SettingsBasicPage : Page, FormBaseLib.Models.IExtendedPage {
         public SettingsBasicPage() {
             InitializeComponent();
+        }
+
+        public void updatePageContents() {
+
         }
     }
 }
