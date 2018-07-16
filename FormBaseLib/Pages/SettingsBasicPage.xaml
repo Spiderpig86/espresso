@@ -7,8 +7,8 @@
 	Title="SettingsBasicPage" Height="330" Width="715">
 
     <Grid Background="White">
-        <Label Content="App Duration" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Margin="24,35,0,0"/>
-        <Label Content="Activate sleep blocking automatically." HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Foreground="#FFACACAC" Margin="24,64,0,0"/>
+        <Label Content="App Duration" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="24,35,0,0"/>
+        <Label Content="Activate sleep blocking automatically." HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Foreground="#FFACACAC" Margin="24,64,0,0"/>
         <ComboBox HorizontalAlignment="Left" Margin="489,50,0,0" VerticalAlignment="Top" Width="185"/>
 
     </Grid>
