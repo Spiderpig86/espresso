@@ -16,10 +16,10 @@
     </Page.Resources>
 
     <Grid Background="White">
-        <Label Content="Start the program Windows startup" HorizontalAlignment="Left" Margin="24,35,-45,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Starts the program (but does not activate the program)." HorizontalAlignment="Left" Margin="24,64,-126,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
-        <Label Content="Activate upon launch" HorizontalAlignment="Left" Margin="24,121,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Activate sleep blocking automatically." HorizontalAlignment="Left" Margin="24,150,0,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
+        <Label Content="Start the program Windows startup" HorizontalAlignment="Right" Margin="0,35,432,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Starts the program (but does not activate the program)." HorizontalAlignment="Right" Margin="0,64,338,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
+        <Label Content="Activate upon launch" HorizontalAlignment="Right" Margin="0,121,532,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Activate sleep blocking automatically." HorizontalAlignment="Right" Margin="0,150,449,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
         <CheckBox Content="" HorizontalAlignment="Left" Margin="628,44,0,0" Style="{DynamicResource ThemedCheckbox}" VerticalAlignment="Top"/>
         <CheckBox Content="" HorizontalAlignment="Left" Margin="628,130,0,0" Style="{DynamicResource ResourceKey=ThemedCheckbox}" VerticalAlignment="Top"/>
 
