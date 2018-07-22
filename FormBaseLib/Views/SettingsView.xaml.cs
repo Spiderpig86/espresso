@@ -47,11 +47,22 @@ namespace FormBaseLib.Views {
         #region "Event Handlers"
 
         private void BasicSettingsButton_Click(object sender, RoutedEventArgs e) {
-            Frame.Content = this.basicSettingsPage;
+            switchPage(this.basicSettingsPage);
         }
 
         private void AdvancedSettingsButton_Click(object sender, RoutedEventArgs e) {
-            Frame.Content = this.advancedSettingsPage;
+            switchPage(this.advancedSettingsPage);
+        }
+
+        /// <summary>
+        ///     Helper function for switching page views
+        /// </summary>
+        /// <param name="page">
+        ///     The page to switch to 
+        /// </param>
+        private void switchPage(FormBaseLib.Models.IExtendedPage page) {
+            Frame.Content = page;
+            this.SettingsViewLabel.Content = page.ToString();
         }
 
         #endregion

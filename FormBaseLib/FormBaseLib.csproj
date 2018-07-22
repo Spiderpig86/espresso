@@ -103,7 +103,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="StylesResourceDictionary.xaml">
+    <Page Include="Pages\StylesResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -18,12 +18,19 @@ namespace FormBaseLib.Pages {
     /// Interaction logic for SettingsAdvancedPage.xaml
     /// </summary>
     public partial class SettingsAdvancedPage : Page, FormBaseLib.Models.IExtendedPage {
+
+        private const String PAGE_NAME = "Advanced Settings";
+
         public SettingsAdvancedPage() {
             InitializeComponent();
         }
 
         public void updatePageContents() {
 
+        }
+
+        public override string ToString() {
+            return PAGE_NAME;
         }
     }
 }
