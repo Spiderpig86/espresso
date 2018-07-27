@@ -22,6 +22,17 @@ namespace Espresso {
         public static String MSG_ERR_CREATE_DIR = "Error creating directory at %s. Please try again";
         public static String MSG_ERR_CREATE_FILE = "Error creating file %s. Please try again";
 
+        public static String APP_DEFAULT_SETTINGS = @"
+' Espresso Preferences File
+' It is not recommended that you manually edit this file.
+
+[Preferences]
+
+sleepDuration=-1
+runWithWindows=false
+enableOnStart=false
+";
+
         /// <summary>
         ///     Wrapper for time
         /// </summary>

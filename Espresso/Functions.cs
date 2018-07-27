@@ -38,7 +38,7 @@ namespace Espresso {
         /// <returns>
         ///     If the files were created successfully
         /// </returns>
-        public static Boolean CreateAppDirs() {
+        public static Boolean CreateAppData() {
 
             if (!Directory.Exists(Constants.AppConfigFolder)) {
                 try {
@@ -49,8 +49,15 @@ namespace Espresso {
                 }
             }
 
-            if (!File.Exists(Constants.AppConfigFolder + @"\" + Constants.AppSettingsFile)) {
-
+            String preferenceFilePath = Constants.AppConfigFolder + @"\" + Constants.AppSettingsFile;
+            if (!File.Exists(preferenceFilePath)) {
+                try {
+                    File.CreateText(preferenceFilePath);
+                    File.WriteAllText(preferenceFilePath, Constants.APP_DEFAULT_SETTINGS);
+                } catch (Exception e) {
+                    MessageBox.Show(Constants.MSG_ERR_FILESYS_TITLE, String.Format(Constants.MSG_ERR_CREATE_FILE, preferenceFilePath));
+                    return false;
+                }
             }
 
             return true;

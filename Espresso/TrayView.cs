@@ -73,6 +73,8 @@ namespace Espresso {
 
             _hiddenWindow = new System.Windows.Window();
             _hiddenWindow.Hide();
+
+            Functions.CreateAppData(); // Init app data
         }
 
         System.Windows.Media.ImageSource AppIcon {
