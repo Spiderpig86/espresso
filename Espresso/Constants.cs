@@ -12,6 +12,17 @@ namespace Espresso {
     public static class Constants {
 
         /// <summary>
+        ///     Path for config app config folder
+        /// </summary>
+        public static String AppConfigFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Espresso_Config";
+        public static String AppSettingsFile = "espresso_prefs.ini";
+
+        /* App string constants */
+        public static String MSG_ERR_FILESYS_TITLE = "Filesystem Error";
+        public static String MSG_ERR_CREATE_DIR = "Error creating directory at %s. Please try again";
+        public static String MSG_ERR_CREATE_FILE = "Error creating file %s. Please try again";
+
+        /// <summary>
         ///     Wrapper for time
         /// </summary>
         public class Duration {
