@@ -1,0 +1,28 @@
+﻿<Page x:Class="Espresso.Pages.SettingsAdvancedPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="330" d:DesignWidth="715"
+	Title="SettingsAdvancedPage">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StylesResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Label Content="Start the program Windows startup" HorizontalAlignment="Right" Margin="0,35,432,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Starts the program (but does not activate the program)." HorizontalAlignment="Right" Margin="0,64,338,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
+        <Label Content="Activate upon launch" HorizontalAlignment="Right" Margin="0,121,532,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Activate sleep blocking automatically." HorizontalAlignment="Right" Margin="0,150,449,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="628,44,0,0" Style="{DynamicResource ThemedCheckbox}" VerticalAlignment="Top"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="628,130,0,0" Style="{DynamicResource ResourceKey=ThemedCheckbox}" VerticalAlignment="Top"/>
+
+    </Grid>
+
+</Page>

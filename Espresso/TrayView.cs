@@ -1,4 +1,4 @@
-﻿using FormBaseLib.Views;
+﻿using Espresso.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +26,7 @@ namespace Espresso {
         private DateTime _endTime; // If user set ending time for sleep
 
         // FORMS
-        private FormBaseLib.Views.AboutView _aboutView;
+        private AboutView _aboutView;
         private FormBaseLib.Models.AboutViewModel _aboutViewModel;
 
         // TOOLSTRIP MENU ITEMS
@@ -221,7 +221,7 @@ namespace Espresso {
 
         private void aboutItem_Click(object sender, EventArgs e) {
             if (_aboutView == null) {
-                _aboutView = new FormBaseLib.Views.AboutView();
+                _aboutView = new Espresso.Views.AboutView();
                 _aboutView.DataContext = _aboutViewModel;
                 _aboutView.Closing += ((sdr, args) => _aboutView = null); // Destroy on close
                 _aboutView.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -243,7 +243,7 @@ namespace Espresso {
         }
 
         private void settingsItem_Click(object sender, EventArgs e) {
-            FormBaseLib.Views.SettingsView _settingsView = new SettingsView();
+            Espresso.Views.SettingsView _settingsView = new SettingsView();
             _settingsView.Show();
         }
 

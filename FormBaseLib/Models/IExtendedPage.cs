@@ -11,7 +11,7 @@ namespace FormBaseLib.Models {
     /// <summary>
     ///     Extended wrapper for Page
     /// </summary>
-    interface IExtendedPage {
+    public interface IExtendedPage {
 
         void updatePageContents();
 
