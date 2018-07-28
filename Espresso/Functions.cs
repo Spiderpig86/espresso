@@ -44,7 +44,7 @@ namespace Espresso {
                 try {
                     Directory.CreateDirectory(Constants.AppConfigFolder);
                 } catch (Exception e) {
-                    MessageBox.Show(Constants.MSG_ERR_FILESYS_TITLE, String.Format(Constants.MSG_ERR_CREATE_DIR, Constants.AppConfigFolder));
+                    MessageBox.Show(String.Format(Constants.MSG_ERR_CREATE_DIR, Constants.AppConfigFolder) + "\n" + e.Message, Constants.MSG_ERR_FILESYS_TITLE);
                     return false;
                 }
             }
@@ -52,10 +52,10 @@ namespace Espresso {
             String preferenceFilePath = Constants.AppConfigFolder + @"\" + Constants.AppSettingsFile;
             if (!File.Exists(preferenceFilePath)) {
                 try {
-                    File.CreateText(preferenceFilePath);
+                    File.CreateText(preferenceFilePath).Close();
                     File.WriteAllText(preferenceFilePath, Constants.APP_DEFAULT_SETTINGS);
                 } catch (Exception e) {
-                    MessageBox.Show(Constants.MSG_ERR_FILESYS_TITLE, String.Format(Constants.MSG_ERR_CREATE_FILE, preferenceFilePath));
+                    MessageBox.Show(String.Format(Constants.MSG_ERR_CREATE_FILE, preferenceFilePath) + "\n" + e.Message, Constants.MSG_ERR_FILESYS_TITLE);
                     return false;
                 }
             }

@@ -19,8 +19,8 @@ namespace Espresso {
 
         /* App string constants */
         public static String MSG_ERR_FILESYS_TITLE = "Filesystem Error";
-        public static String MSG_ERR_CREATE_DIR = "Error creating directory at %s. Please try again";
-        public static String MSG_ERR_CREATE_FILE = "Error creating file %s. Please try again";
+        public static String MSG_ERR_CREATE_DIR = "Error creating directory at {0}. Please try again";
+        public static String MSG_ERR_CREATE_FILE = "Error creating file {0}. Please try again";
 
         public static String APP_DEFAULT_SETTINGS = @"
 ' Espresso Preferences File
