@@ -8,10 +8,10 @@
             <RowDefinition Height="45*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="789*"/>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="776*"/>
         </Grid.ColumnDefinitions>
-        <Label Name="SettingsViewLabel" Content="Settings" HorizontalAlignment="Left" Margin="24,17,0,0" VerticalAlignment="Top" FontSize="28" FontFamily="Segoe UI Semilight" Height="48" Width="121" Grid.Column="1"/>
+        <Label Name="SettingsViewLabel" Content="Settings" HorizontalAlignment="Left" Margin="24,17,0,0" VerticalAlignment="Top" FontSize="28" FontFamily="Segoe UI Semilight" Height="48" Width="307" Grid.Column="1"/>
         <Canvas Grid.Column="1" HorizontalAlignment="Left" Height="3" Margin="30,62,0,0" VerticalAlignment="Top" Width="30" Background="#FF0085E3" RenderTransformOrigin="0.5,0.5">
             <Canvas.RenderTransform>
                 <TransformGroup>
@@ -23,7 +23,7 @@
             </Canvas.RenderTransform>
         </Canvas>
         <Frame x:Name="Frame" Content="Frame" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="10,0,0,0"/>
-        <StackPanel Grid.RowSpan="2" Background="#FF0085E3" Margin="-4,0,784,0" Grid.ColumnSpan="2">
+        <StackPanel Grid.RowSpan="2" Background="#FF0085E3" Margin="-4,0,8,0">
             <Button x:Name="BasicSettingsButton" MinHeight="49" Background="#FF0085E3" Foreground="White" FontSize="18" BorderThickness="0" Click="BasicSettingsButton_Click">
                 <Image Source="../resources/icons8-settings-24.png" Stretch="None"/>
             </Button>
