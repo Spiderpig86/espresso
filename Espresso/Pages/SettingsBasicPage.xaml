@@ -17,7 +17,7 @@
     <Grid Background="White">
         <Label Content="App Duration" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="16" Margin="0,35,586,0"/>
         <Label Content="Activate sleep blocking automatically." HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="14" Foreground="#FFACACAC" Margin="0,64,449,0"/>
-        <ComboBox Margin="489,50,41,0" VerticalAlignment="Top"/>
+        <ComboBox Name="comboDuration" Margin="489,50,41,0" VerticalAlignment="Top" ItemsSource="{Binding Path=DurationCollection}" DisplayMemberPath="Description"/>
 
     </Grid>
 </Page>

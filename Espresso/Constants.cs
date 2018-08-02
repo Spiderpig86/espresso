@@ -51,7 +51,7 @@ enableOnStart=false
             }
         }
 
-        private static IList<Duration> _durationMins = new List<Duration>() {
+        private static List<Duration> _durationMins = new List<Duration>() {
             new Duration(-1),
 
             // Minutes Menu Items
@@ -69,7 +69,7 @@ enableOnStart=false
             new Duration(720)
         };
 
-        public static IList<Duration> DurationMins {
+        public static List<Duration> DurationMins {
             get {
                 return _durationMins;
             }

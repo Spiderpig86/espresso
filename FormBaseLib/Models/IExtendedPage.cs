@@ -13,6 +13,9 @@ namespace FormBaseLib.Models {
     /// </summary>
     public interface IExtendedPage {
 
+        /// <summary>
+        ///     Used for triggering refreshes when the page is shown, such as reloading settings
+        /// </summary>
         void updatePageContents();
 
     }
