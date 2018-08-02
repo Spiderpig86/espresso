@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static Espresso.Constants;
 
 namespace Espresso {
@@ -63,5 +65,36 @@ namespace Espresso {
 
             return false;
         }
+
+        #region Settings IO
+        /// <summary>
+        ///     Parse settings from file
+        /// </summary>
+        /// <returns>
+        ///     Return success status
+        /// </returns>
+        public static bool ParseSettings() {
+
+            return true;
+        }
+
+        public static bool SaveSettings() {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(APP_DEFAULT_SETTINGS_HEADER);
+            sb.AppendLine(nameof(SleepDuration) + "=" + SleepDuration.Time.ToString());
+            sb.AppendLine(nameof(StartWithWindows) + "=" + StartWithWindows.ToString());
+            sb.Append(nameof(ActivateOnStart) + "= " + ActivateOnStart.ToString());
+
+            String preferenceFilePath = Constants.AppConfigFolder + @"\" + Constants.AppSettingsFile;
+
+            try {
+                File.WriteAllText(preferenceFilePath, Constants.APP_DEFAULT_SETTINGS);
+            } catch (Exception e) {
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
 }
