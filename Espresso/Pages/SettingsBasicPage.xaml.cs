@@ -38,11 +38,17 @@ namespace Espresso.Pages {
             InitializeComponent();
             this.DurationCollection = new ObservableCollection<Constants.Duration>(Constants.DurationMins); // Initialize the app durations
             this.DataContext = this; // Expose fields for property binding
-            MessageBox.Show(this.comboDuration.Items.Count.ToString());
+
+            this.updatePageContents();
         }
 
         public void updatePageContents() {
-
+            foreach (Constants.Duration d in DurationCollection) {
+                if (d.Time == UserSettings.SleepDuration.Time) {
+                    this.comboDuration.SelectedItem = d;
+                    break;
+                }
+            }
         }
 
         #region PropertyListener

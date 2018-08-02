@@ -23,10 +23,13 @@ namespace Espresso.Pages {
 
         public SettingsAdvancedPage() {
             InitializeComponent();
+
+            this.updatePageContents();
         }
 
         public void updatePageContents() {
-
+            this.toggleActivateLaunch.IsChecked = UserSettings.ActivateOnStart;
+            this.toggleWindowsStart.IsChecked = UserSettings.StartWithWindows;
         }
 
         public override string ToString() {

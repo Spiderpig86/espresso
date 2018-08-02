@@ -65,6 +65,7 @@ namespace Espresso.Views {
         private void switchPage(FormBaseLib.Models.IExtendedPage page) {
             Frame.Content = page;
             this.SettingsViewLabel.Content = page.ToString();
+            page.updatePageContents();
         }
 
         #endregion
