@@ -44,11 +44,16 @@ namespace Espresso.Pages {
 
         public void updatePageContents() {
             foreach (Constants.Duration d in DurationCollection) {
-                if (d.Time == UserSettings.SleepDuration.Time) {
+                if (d.Time == UserSettings.WakeDuration.Time) {
                     this.comboDuration.SelectedItem = d;
                     break;
                 }
             }
+        }
+
+        private void comboDuration_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            UserSettings.WakeDuration = (Constants.Duration) this.comboDuration.SelectedItem;
+            UserSettings.Save();
         }
 
         #region PropertyListener

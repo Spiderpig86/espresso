@@ -16,6 +16,7 @@ namespace Espresso {
         /// </summary>
         public static String AppConfigFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Espresso_Config";
         public static String AppSettingsFile = "espresso_prefs.ini";
+        public static String AppSettingsFilePath = AppConfigFolder + "/" + AppSettingsFile;
 
         /* App string constants */
         public static String MSG_ERR_FILESYS_TITLE = "Filesystem Error";
@@ -35,9 +36,9 @@ namespace Espresso {
 
 [Preferences]
 
-sleepDuration=-1
-runWithWindows=false
-enableOnStart=false
+WakeDuration=30
+StartWithWindows=false
+ActivateOnStart=false
 ";
 
         /// <summary>

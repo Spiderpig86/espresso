@@ -49,7 +49,7 @@ namespace Espresso {
                 }
             }
 
-            String preferenceFilePath = Constants.AppConfigFolder + @"\" + Constants.AppSettingsFile;
+            String preferenceFilePath = Constants.AppSettingsFilePath;
             if (!File.Exists(preferenceFilePath)) {
                 try {
                     File.CreateText(preferenceFilePath).Close();

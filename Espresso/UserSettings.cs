@@ -17,53 +17,44 @@ namespace Espresso {
         /// <summary>
         ///     Default settings
         /// </summary>
-        private static Duration _SleepDuration = new Duration(30);
+        private static Duration _WakeDuration = new Duration(30);
         private static bool _StartWithWindows = false;
         private static bool _ActiviateOnStart = false;
 
-        public static Duration SleepDuration {
-            get => _SleepDuration;
-            set => _SleepDuration = value;
+        public static Duration WakeDuration {
+            get => _WakeDuration;
+            set {
+                _WakeDuration = value;
+            }
+
         }
 
         public static bool StartWithWindows {
             get => _StartWithWindows;
-            set => _StartWithWindows = value;
+            set {
+                _StartWithWindows = value;
+            }
         }
 
         public static bool ActivateOnStart {
             get => _ActiviateOnStart;
-            set => _ActiviateOnStart = value;
+            set {
+                _ActiviateOnStart = value;
+            }
         }
 
-        public static bool TrySetSleepDuration(String duration) {
-            int parsedTime;
-            if (Int32.TryParse(duration, out parsedTime)) {
-               SleepDuration = new Duration(parsedTime);
-                return true;
-            }
+        public static int TryParseInt(String duration, Int32 defaultVal) {
+            int parsedInt = defaultVal;
+            Int32.TryParse(duration, out parsedInt);
 
-            return false;
+            return parsedInt;
         }
 
-        public static bool TrySetStartWithWindows(String val) {
-            bool parsedBool;
-            if (Boolean.TryParse(val, out parsedBool)) {
-                StartWithWindows = parsedBool;
-                return true;
-            }
+        public static bool TryParseBool(String val, bool defaultVal) {
+            bool parsedBool = defaultVal;
+            Boolean.TryParse(val, out parsedBool);
 
-            return false;
-        }
-
-        public static bool TrySetActivateOnStart(String val) {
-            bool parsedBool;
-            if (Boolean.TryParse(val, out parsedBool)) {
-                ActivateOnStart = parsedBool;
-                return true;
-            }
-
-            return false;
+            return parsedBool;
         }
 
         #region Settings IO
@@ -73,23 +64,46 @@ namespace Espresso {
         /// <returns>
         ///     Return success status
         /// </returns>
-        public static bool ParseSettings() {
+        public static bool Load() {
+            if (!File.Exists(Constants.AppSettingsFilePath))
+                return false;
+        
+            try {
+                using (StreamReader sr = new StreamReader(Constants.AppSettingsFilePath)) {
+                    while (sr.Peek() >= 0) {
+                        ExamineLine(sr.ReadLine());
+                    }
+                }
+            } catch (Exception e) {
+                return false;
+            }
 
             return true;
         }
 
-        public static bool SaveSettings() {
+        public static void ExamineLine(String preference) {
+            if (preference.StartsWith(nameof(WakeDuration))) {
+                WakeDuration = new Duration(TryParseInt(preference.Split('=')[1], WakeDuration.Time));
+            } else if (preference.StartsWith(nameof(StartWithWindows))) {
+                StartWithWindows = TryParseBool(preference.Split('=')[1], StartWithWindows);
+            }  else if (preference.StartsWith(nameof(ActivateOnStart))) {
+                ActivateOnStart = TryParseBool(preference.Split('=')[1], ActivateOnStart);
+            }
+        }
+
+        public static bool Save() {
             StringBuilder sb = new StringBuilder();
             sb.Append(APP_DEFAULT_SETTINGS_HEADER);
-            sb.AppendLine(nameof(SleepDuration) + "=" + SleepDuration.Time.ToString());
+            sb.AppendLine(nameof(WakeDuration) + "=" + WakeDuration.Time.ToString());
             sb.AppendLine(nameof(StartWithWindows) + "=" + StartWithWindows.ToString());
             sb.Append(nameof(ActivateOnStart) + "= " + ActivateOnStart.ToString());
 
-            String preferenceFilePath = Constants.AppConfigFolder + @"\" + Constants.AppSettingsFile;
+            String preferenceFilePath = Constants.AppSettingsFilePath;
 
             try {
-                File.WriteAllText(preferenceFilePath, Constants.APP_DEFAULT_SETTINGS);
+                File.WriteAllText(preferenceFilePath, sb.ToString());
             } catch (Exception e) {
+                MessageBox.Show(Constants.MSG_ERR_SAVE_SETTINGS);
                 return false;
             }
 
