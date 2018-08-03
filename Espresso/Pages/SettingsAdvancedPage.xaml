@@ -20,8 +20,8 @@
         <Label Content="Starts the program (but does not activate the program)." HorizontalAlignment="Right" Margin="0,64,338,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
         <Label Content="Activate upon launch" HorizontalAlignment="Right" Margin="0,121,532,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Activate sleep blocking automatically." HorizontalAlignment="Right" Margin="0,150,449,0" VerticalAlignment="Top" Foreground="#FFACACAC" FontSize="14"/>
-        <CheckBox Name="toggleWindowsStart" Content="" HorizontalAlignment="Left" Margin="609,44,0,0" Style="{DynamicResource ThemedCheckbox}" VerticalAlignment="Top" Width="74"/>
-        <CheckBox Name="toggleActivateLaunch" Content="" HorizontalAlignment="Left" Margin="609,130,0,0" Style="{DynamicResource ThemedCheckbox}" VerticalAlignment="Top" Width="74"/>
+        <CheckBox Name="toggleWindowsStart" Content="" HorizontalAlignment="Left" Margin="609,44,0,0" Style="{DynamicResource ThemedCheckbox}" VerticalAlignment="Top" Width="74" Click="toggleWindowsStart_Click"/>
+        <CheckBox Name="toggleActivateLaunch" Content="" HorizontalAlignment="Left" Margin="609,130,0,0" Style="{DynamicResource ThemedCheckbox}" VerticalAlignment="Top" Width="74" Click="toggleActivateLaunch_Click"/>
 
     </Grid>
 

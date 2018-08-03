@@ -32,6 +32,16 @@ namespace Espresso.Pages {
             this.toggleWindowsStart.IsChecked = UserSettings.StartWithWindows;
         }
 
+        private void toggleWindowsStart_Click(object sender, RoutedEventArgs e) {
+            UserSettings.StartWithWindows = (bool)this.toggleWindowsStart.IsChecked;
+            UserSettings.Save();
+        }
+
+        private void toggleActivateLaunch_Click(object sender, RoutedEventArgs e) {
+            UserSettings.ActivateOnStart = (bool)this.toggleActivateLaunch.IsChecked;
+            UserSettings.Save();
+        }
+
         public override string ToString() {
             return PAGE_NAME;
         }

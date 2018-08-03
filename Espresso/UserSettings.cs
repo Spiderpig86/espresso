@@ -93,10 +93,10 @@ namespace Espresso {
 
         public static bool Save() {
             StringBuilder sb = new StringBuilder();
-            sb.Append(APP_DEFAULT_SETTINGS_HEADER);
+            sb.AppendLine(APP_DEFAULT_SETTINGS_HEADER);
             sb.AppendLine(nameof(WakeDuration) + "=" + WakeDuration.Time.ToString());
             sb.AppendLine(nameof(StartWithWindows) + "=" + StartWithWindows.ToString());
-            sb.Append(nameof(ActivateOnStart) + "= " + ActivateOnStart.ToString());
+            sb.AppendLine(nameof(ActivateOnStart) + "=" + ActivateOnStart.ToString());
 
             String preferenceFilePath = Constants.AppSettingsFilePath;
 
