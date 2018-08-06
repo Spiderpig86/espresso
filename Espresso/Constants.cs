@@ -23,6 +23,7 @@ namespace Espresso {
         public static String MSG_ERR_CREATE_DIR = "Error creating directory at {0}. Please try again";
         public static String MSG_ERR_CREATE_FILE = "Error creating file {0}. Please try again";
         public static String MSG_ERR_SAVE_SETTINGS = "Error saving user settings, please ensure that you have access to " + AppConfigFolder;
+        public static String MSG_ERR_SETTING_STATE = " Error setting system wake/sleep status. No changes were made.";
 
         public static String APP_DEFAULT_SETTINGS_HEADER = @"
 ' Espresso Preferences File

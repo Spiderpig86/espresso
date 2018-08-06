@@ -21,7 +21,6 @@ namespace Espresso {
         private NotifyIcon _notifyIcon; // The tray display
         private IContainer _components; // For grouping components
         private Timer _sleepTimer; // Keep track of duration of no sleep
-        private Constants.Duration _selectedDuration; // Current selected duration
         private uint? oldState = null; // Thread state
         private DateTime _endTime; // If user set ending time for sleep
 
@@ -45,7 +44,7 @@ namespace Espresso {
             set {
                 _isTimeoutDisabled = value;
                 if (_isTimeoutDisabled) {
-                    activate(this._selectedDuration);
+                    activate(UserSettings.WakeDuration);
                 } else {
                     deactivate();
                 }
@@ -63,9 +62,7 @@ namespace Espresso {
                 Visible = true,
             };
             _sleepTimer = new Timer(_components);
-            _selectedDuration = Constants.DurationMins.ElementAt(0); // Set to indefinite by default
 
-            // Hook events
             _notifyIcon.ContextMenu.Popup += ContextMenu_Opening;
 
             // Init models
@@ -212,11 +209,7 @@ namespace Espresso {
 
                 // Select current duration
                 foreach (MenuItem item in _durationItem.MenuItems)
-                    if (((Constants.Duration) item.Tag).Time == _selectedDuration.Time) {
-                        item.Checked = true;
-                    } else {
-                        item.Checked = false;
-                    }
+                    item.Checked = ((Constants.Duration)item.Tag).Time == UserSettings.WakeDuration.Time;
             }
         }
 
@@ -240,6 +233,11 @@ namespace Espresso {
         }
 
         private void exitItem_Click(object sender, EventArgs e) {
+            // Reset to original state
+            if (oldState.HasValue) {
+                NativeWrapper.SetPreviousState();
+            }
+
             Application.Exit();
         }
 
@@ -256,17 +254,18 @@ namespace Espresso {
             Constants.Duration duration = (Constants.Duration) ((MenuItem) sender).Tag;
             deactivate();
 
-            this._selectedDuration = duration;
+            UserSettings.WakeDuration = duration;
 
             // Select current duration
             foreach (MenuItem item in _durationItem.MenuItems)
-                if (((Constants.Duration) item.Tag).Time == _selectedDuration.Time) {
+                if (((Constants.Duration) item.Tag).Time == UserSettings.WakeDuration.Time) {
                     item.Checked = true;
                 } else {
                     item.Checked = false;
                 }
 
             activate(duration);
+            UserSettings.Save();
         }
 
         /// <summary>
