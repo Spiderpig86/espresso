@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,7 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Espresso.Pages {
     /// <summary>
@@ -34,7 +35,30 @@ namespace Espresso.Pages {
 
         private void toggleWindowsStart_Click(object sender, RoutedEventArgs e) {
             UserSettings.StartWithWindows = (bool)this.toggleWindowsStart.IsChecked;
+
+            if (UserSettings.StartWithWindows) {
+                var shell = new SysShell();
+                var shortcut = GetShortcutPath(shell);
+                var executable = Assembly.GetExecutingAssembly()
+                                         .GetName().CodeBase;
+                if (UserSettings.StartWithWindows) {
+                    // create shortcut in startup items folder in start menu
+                    shell.CreateShortcut(shortcut, executable);
+                } else {
+                    // remove shortcut if it exists
+                    File.Delete(shortcut);
+                }
+            }
+
             UserSettings.Save();
+        }
+
+        static string GetShortcutPath(SysShell shell = null) {
+            if (shell == null) {
+                shell = new SysShell();
+            }
+            var startup = shell.GetSpecialFolder("Startup");
+            return Path.Combine(startup, "Espresso.lnk");
         }
 
         private void toggleActivateLaunch_Click(object sender, RoutedEventArgs e) {

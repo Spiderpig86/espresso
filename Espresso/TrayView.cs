@@ -71,8 +71,17 @@ namespace Espresso {
             _hiddenWindow = new System.Windows.Window();
             _hiddenWindow.Hide();
 
+            this.buildContextMenu();
+
             Functions.CreateAppData(); // Init app data
-            UserSettings.Load();
+            if (!UserSettings.Load()) {
+                MessageBox.Show(Constants.MSG_ERR_LOAD_SETTINGS);
+            }
+
+            // Post Settings Init
+            if (UserSettings.ActivateOnStart) {
+                IsTimeoutDisabled = true;
+            }
         }
 
         System.Windows.Media.ImageSource AppIcon {
@@ -180,16 +189,7 @@ namespace Espresso {
                 item.Enabled = enable;
         }
 
-        /**
-         * EVENT HANDLERS
-         */
-        /// <summary>
-        ///     Populate context menu on each open
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ContextMenu_Opening(Object sender, EventArgs e) {
-
+        public void buildContextMenu() {
             // Populate list if empty
             if (_notifyIcon.ContextMenu.MenuItems.Count == 0) {
                 _aboutItem = buildMenuItem("&About...", "About the app", aboutItem_Click);
@@ -211,6 +211,19 @@ namespace Espresso {
                 foreach (MenuItem item in _durationItem.MenuItems)
                     item.Checked = ((Constants.Duration)item.Tag).Time == UserSettings.WakeDuration.Time;
             }
+        }
+
+        /**
+         * EVENT HANDLERS
+         */
+        /// <summary>
+        ///     Populate context menu on each open
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ContextMenu_Opening(Object sender, EventArgs e) {
+
+            
         }
 
         private void aboutItem_Click(object sender, EventArgs e) {
@@ -248,6 +261,7 @@ namespace Espresso {
 
         private void toggleItem_Click(object sender, EventArgs e) {
             IsTimeoutDisabled = !IsTimeoutDisabled; // Update properties
+            this.buildContextMenu();
         }
 
         private void durationItem_Click(object sender, EventArgs e) {
