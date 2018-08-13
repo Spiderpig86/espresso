@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -18,6 +19,14 @@ namespace Espresso.Views {
     public partial class AboutView : Window {
         public AboutView() {
             InitializeComponent();
+        }
+
+        private void ReportLabel_MouseUp(object sender, MouseButtonEventArgs e) {
+            Process.Start("https://github.com/Spiderpig86/espresso/issues");
+        }
+
+        private void SourceLabel_MouseUp(object sender, MouseButtonEventArgs e) {
+            Process.Start("https://github.com/Spiderpig86/espresso");
         }
     }
 }
