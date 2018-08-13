@@ -206,11 +206,11 @@ namespace Espresso {
                     _settingsItem,
                     _exitItem
                 });
-
-                // Select current duration
-                foreach (MenuItem item in _durationItem.MenuItems)
-                    item.Checked = ((Constants.Duration)item.Tag).Time == UserSettings.WakeDuration.Time;
             }
+
+            // Select current duration
+            foreach (MenuItem item in _durationItem.MenuItems)
+                item.Checked = ((Constants.Duration)item.Tag).Time == UserSettings.WakeDuration.Time;
         }
 
         /**
