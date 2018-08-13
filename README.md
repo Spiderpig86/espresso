@@ -9,3 +9,4 @@ Make your computer sleep when you want to. Set blocks of time to prevent annoyin
 * Right click on the tooltip icon in the taskbar to adjust settings and enable/disable it.
 * Note that this application is not portable.
 
+<img src="https://i.imgur.com/1kBICZy.png" alt="Espresso Screenshot">
