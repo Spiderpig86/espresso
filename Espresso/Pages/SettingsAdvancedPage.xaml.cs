@@ -35,19 +35,17 @@ namespace Espresso.Pages {
 
         private void toggleWindowsStart_Click(object sender, RoutedEventArgs e) {
             UserSettings.StartWithWindows = (bool)this.toggleWindowsStart.IsChecked;
-
+            
+            var shell = new SysShell();
+            var shortcut = GetShortcutPath(shell);
+            var executable = Assembly.GetExecutingAssembly()
+                                        .GetName().CodeBase;
             if (UserSettings.StartWithWindows) {
-                var shell = new SysShell();
-                var shortcut = GetShortcutPath(shell);
-                var executable = Assembly.GetExecutingAssembly()
-                                         .GetName().CodeBase;
-                if (UserSettings.StartWithWindows) {
-                    // create shortcut in startup items folder in start menu
-                    shell.CreateShortcut(shortcut, executable);
-                } else {
-                    // remove shortcut if it exists
-                    File.Delete(shortcut);
-                }
+                // create shortcut in startup items folder in start menu
+                shell.CreateShortcut(shortcut, executable);
+            } else {
+                // remove shortcut if it exists
+                File.Delete(shortcut);
             }
 
             UserSettings.Save();
